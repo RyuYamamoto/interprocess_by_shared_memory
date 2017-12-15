@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <thread>
+#include <chrono>
 #include <boost/interprocess/managed_shared_memory.hpp>
 #include <boost/interprocess/sync/interprocess_mutex.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
@@ -19,6 +21,9 @@ int main(int argc, char* argv[])
 	interprocess_mutex* mx = shm.find_or_construct<interprocess_mutex>("test_mutex")();
 	TestData* ptr	= shm.find_or_construct<TestData>("TestData")();
 
-	scoped_lock<interprocess_mutex> lock(*mx);
-	ptr->counter++;
+	while(1){
+		scoped_lock<interprocess_mutex> lock(*mx);
+		ptr->counter++;
+		std::this_thread::sleep_for(std::chrono::seconds(1));
+	}
 }

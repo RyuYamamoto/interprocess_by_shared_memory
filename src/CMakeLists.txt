@@ -18,3 +18,6 @@ target_link_libraries(thread1 ${Boost_LIBRARIES})
 
 add_executable(thread2 thread2.cpp)
 target_link_libraries(thread2 ${Boost_LIBRARIES})
+
+add_executable(remove_sm remove_shared_memory.cpp)
+target_link_libraries(remove_sm ${Boost_LIBRARIES})
